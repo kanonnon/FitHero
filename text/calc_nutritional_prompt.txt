@@ -1,0 +1,35 @@
+For the meal shown in the image, calculate the approximate grams, calories, protein, fat, carbohydrates, and dietary fiber for each food item and present the output in the following format:
+
+#{start}
+【Nutritional Values for Each Food Item】
+Name of the food
+・Weight: ... grams
+・Calories: ... calories
+・Protein: ... grams
+・Fat: ... grams
+・Carbohydrates: ... grams
+・Dietary Fiber: ... grams
+
+Name of the food
+・Weight: ... grams
+・Calories: ... calories
+・Protein: ... grams
+・Fat: ... grams
+・Carbohydrates: ... grams
+・Dietary Fiber: ... grams
+
+Name of the food
+・Weight: ... grams
+・Calories: ... calories
+・Protein: ... grams
+・Fat: ... grams
+・Carbohydrates: ... grams
+・Dietary Fiber: ... grams
+
+【Total Nutritional Information per Serving】
+・Calories: ... calories
+・Protein: ... grams
+・Fat: ... grams
+・Carbohydrates: ... grams
+・Dietary Fiber: ... grams
+#{end}

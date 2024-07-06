@@ -1,10 +1,7 @@
 import os
-import io
-import base64
 import sqlite3
+from datetime import datetime, date
 from dotenv import load_dotenv
-from openai import OpenAI
-from PIL import Image
 from flask import Flask, request, abort
 from linebot import (
     LineBotApi, WebhookHandler
@@ -16,6 +13,9 @@ from linebot.models import (
     FollowEvent, MessageEvent, TextMessage, TextSendMessage, ImageMessage
 )
 
+from registration import initiate_user_registration, handle_user_registration
+from gpt import calc_nutritional_info_from_image, create_sql_query
+from utils import extract_text_between
 
 load_dotenv()
 
@@ -26,59 +26,6 @@ app = Flask(__name__)
 
 conn = sqlite3.connect('database.db', check_same_thread=False)
 c = conn.cursor()
-
-
-def encode_image(image_data):
-    """
-    Encode image data to base64
-    """
-    return base64.b64encode(image_data).decode("utf-8")
-
-
-def resize_image(image_path, new_size=(512, 512)):
-    """
-    Resize image to new size
-    """
-    with Image.open(image_path) as img:
-        resized_img = img.resize(new_size)
-        img_byte_arr = io.BytesIO()
-        resized_img.save(img_byte_arr, format=img.format)
-        img_byte_arr = img_byte_arr.getvalue()
-    return img_byte_arr
-
-
-def get_response_from_gpt_with_img(image_path, prompt):
-    """
-    Get response from GPT-4o with image
-    """
-    resized_image_data = resize_image(image_path)
-    base64_image = encode_image(resized_image_data)
-
-    client = OpenAI(api_key=os.environ.get('OPENAI_API'))
-
-    response = client.chat.completions.create(
-        model="gpt-4o",
-        messages=[
-            {"role": "system", "content": "You are a handsome gym trainer. You gently help your clients lose weight."},
-            {"role": "user", "content": [
-                {"type": "text", "text": prompt},
-                {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{base64_image}"}}
-            ]}
-        ],
-        temperature=0.0,
-    )
-    return response.choices[0].message.content
-
-
-def initiate_user_registration(user_id, reply_token):
-    """
-    Initiate user registration
-    """
-    c.execute('INSERT OR IGNORE INTO users (id, state) VALUES (?, ?)', (user_id, 'ASK_NAME'))
-    conn.commit()
-    line_bot_api.reply_message(
-        reply_token, TextSendMessage(text="Hello! Please tell me your name.")
-    )
 
 
 @app.route("/")
@@ -107,7 +54,7 @@ def handle_follow(event):
     Handle follow event
     """
     user_id = event.source.user_id
-    initiate_user_registration(user_id, event.reply_token)
+    initiate_user_registration(user_id, event.reply_token, line_bot_api)
 
 
 @handler.add(MessageEvent, message=TextMessage)
@@ -118,42 +65,11 @@ def handle_text_message(event):
     user_id = event.source.user_id
     text = event.message.text
 
-    c.execute('SELECT state FROM users WHERE id = ?', (user_id,))
-    user = c.fetchone()
+    if text == "初回":
+        initiate_user_registration(user_id, event.reply_token, line_bot_api)
+        return
 
-    if user:
-        state = user[0]
-
-        if state == 'ASK_NAME':
-            c.execute('UPDATE users SET name = ?, state = ? WHERE id = ?', (text, 'ASK_HEIGHT', user_id))
-            conn.commit()
-            line_bot_api.reply_message(
-                event.reply_token, TextSendMessage(text="Thank you! What is your height (in cm)?")
-            )
-        elif state == 'ASK_HEIGHT':
-            c.execute('UPDATE users SET height = ?, state = ? WHERE id = ?', (float(text), 'ASK_CURRENT_WEIGHT', user_id))
-            conn.commit()
-            line_bot_api.reply_message(
-                event.reply_token, TextSendMessage(text="Thank you! What is your current weight (in kg)?")
-            )
-        elif state == 'ASK_CURRENT_WEIGHT':
-            c.execute('UPDATE users SET current_weight = ?, state = ? WHERE id = ?', (float(text), 'ASK_TARGET_WEIGHT', user_id))
-            conn.commit()
-            line_bot_api.reply_message(
-                event.reply_token, TextSendMessage(text="Thank you! What is your target weight (in kg)?")
-            )
-        elif state == 'ASK_TARGET_WEIGHT':
-            c.execute('UPDATE users SET target_weight = ?, state = ? WHERE id = ?', (float(text), 'REGISTERED', user_id))
-            conn.commit()
-            with open('explanation.txt', 'r', encoding='utf-8') as file:
-                explanation = file.read()
-            line_bot_api.reply_message(
-                event.reply_token, TextSendMessage(text=f"Registration complete!\n{explanation}")
-            )
-    else:
-        line_bot_api.reply_message(
-            event.reply_token, TextSendMessage(text="You are already registered!")
-        )
+    handle_user_registration(user_id, text, event.reply_token, line_bot_api)
 
 
 @handler.add(MessageEvent, message=ImageMessage)
@@ -162,22 +78,56 @@ def handle_image_message(event):
     Handle image message
     """
     message_id = event.message.id
+    user_id = event.source.user_id
     message_content = line_bot_api.get_message_content(message_id)
+
+    c.execute('SELECT id FROM users WHERE user_id = ?', (user_id,))
+    user = c.fetchone()
+    user_db_id = user[0]
+    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     
     with open(f"static/{message_id}.jpg", "wb") as f:
         for chunk in message_content.iter_content():
             f.write(chunk)
     
     image_path = f"static/{message_id}.jpg"
-    
-    with open('prompt.txt', 'r', encoding='utf-8') as file:
-        prompt = file.read()
 
-    response_text = get_response_from_gpt_with_img(image_path, prompt)
+    nutritional_info = calc_nutritional_info_from_image(image_path)
+    nutritional_info = extract_text_between(nutritional_info, "#{start}", "#{end}")
+    sql_query = create_sql_query(user_db_id, current_time, nutritional_info)
+    sql_query = extract_text_between(sql_query, "```sql", "```")
+    
+    c.execute(sql_query)
+    conn.commit()
+
+    today = date.today()
+    start_of_day = datetime.combine(today, datetime.min.time()).strftime("%Y-%m-%d %H:%M:%S")
+    end_of_day = datetime.combine(today, datetime.max.time()).strftime("%Y-%m-%d %H:%M:%S")
+
+    c.execute('''
+        SELECT 
+            SUM(calories), 
+            SUM(protein), 
+            SUM(fat), 
+            SUM(carbohydrates), 
+            SUM(dietary_fiber) 
+        FROM nutritional_records 
+        WHERE user_id = ? AND date_time BETWEEN ? AND ?
+    ''', (user_db_id, start_of_day, end_of_day))
+    total_nutrition = c.fetchone()
+
+    total_nutrition_message = (
+        f"Today's total nutritional intake:\n"
+        f"Calories: {total_nutrition[0]:.2f} kcal\n"
+        f"Protein: {total_nutrition[1]:.2f} g\n"
+        f"Fat: {total_nutrition[2]:.2f} g\n"
+        f"Carbohydrates: {total_nutrition[3]:.2f} g\n"
+        f"Dietary Fiber: {total_nutrition[4]:.2f} g"
+    )
 
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=response_text)
+        [TextSendMessage(text=nutritional_info), TextSendMessage(text=total_nutrition_message)]
     )
 
 
