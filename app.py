@@ -1,8 +1,9 @@
 import os
 import io
 import base64
+import sqlite3
 from dotenv import load_dotenv
-from openai import OpenAI 
+from openai import OpenAI
 from PIL import Image
 from flask import Flask, request, abort
 from linebot import (
@@ -12,16 +13,19 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    FollowEvent, MessageEvent, TextMessage, TextSendMessage, ImageMessage, ImageSendMessage, TemplateSendMessage, ButtonsTemplate, PostbackTemplateAction, MessageTemplateAction, URITemplateAction
+    FollowEvent, MessageEvent, TextMessage, TextSendMessage, ImageMessage
 )
 
 
-load_dotenv()  
+load_dotenv()
 
 line_bot_api = LineBotApi(os.environ.get('LINE_CHANNEL_ACCESS_TOKEN'))
 handler = WebhookHandler(os.environ.get('LINE_CHANNEL_SECRET'))
 
 app = Flask(__name__)
+
+conn = sqlite3.connect('database.db', check_same_thread=False)
+c = conn.cursor()
 
 
 def encode_image(image_data):
@@ -43,7 +47,7 @@ def resize_image(image_path, new_size=(512, 512)):
     return img_byte_arr
 
 
-def get_response_from_gpt_with_img(image_path):
+def get_response_from_gpt_with_img(image_path, prompt):
     """
     Get response from GPT-4o with image
     """
@@ -57,13 +61,24 @@ def get_response_from_gpt_with_img(image_path):
         messages=[
             {"role": "system", "content": "You are a handsome gym trainer. You gently help your clients lose weight."},
             {"role": "user", "content": [
-                {"type": "text", "text": "画像について説明して"},
+                {"type": "text", "text": prompt},
                 {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{base64_image}"}}
             ]}
         ],
         temperature=0.0,
     )
     return response.choices[0].message.content
+
+
+def initiate_user_registration(user_id, reply_token):
+    """
+    Initiate user registration
+    """
+    c.execute('INSERT OR IGNORE INTO users (id, state) VALUES (?, ?)', (user_id, 'ASK_NAME'))
+    conn.commit()
+    line_bot_api.reply_message(
+        reply_token, TextSendMessage(text="Hello! Please tell me your name.")
+    )
 
 
 @app.route("/")
@@ -86,10 +101,65 @@ def callback():
     return 'OK'
 
 
-@handler.add(MessageEvent, message=ImageMessage)
-def handle_message(event):
+@handler.add(FollowEvent)
+def handle_follow(event):
     """
-    Handle image message event
+    Handle follow event
+    """
+    user_id = event.source.user_id
+    initiate_user_registration(user_id, event.reply_token)
+
+
+@handler.add(MessageEvent, message=TextMessage)
+def handle_text_message(event):
+    """
+    Handle text message
+    """
+    user_id = event.source.user_id
+    text = event.message.text
+
+    c.execute('SELECT state FROM users WHERE id = ?', (user_id,))
+    user = c.fetchone()
+
+    if user:
+        state = user[0]
+
+        if state == 'ASK_NAME':
+            c.execute('UPDATE users SET name = ?, state = ? WHERE id = ?', (text, 'ASK_HEIGHT', user_id))
+            conn.commit()
+            line_bot_api.reply_message(
+                event.reply_token, TextSendMessage(text="Thank you! What is your height (in cm)?")
+            )
+        elif state == 'ASK_HEIGHT':
+            c.execute('UPDATE users SET height = ?, state = ? WHERE id = ?', (float(text), 'ASK_CURRENT_WEIGHT', user_id))
+            conn.commit()
+            line_bot_api.reply_message(
+                event.reply_token, TextSendMessage(text="Thank you! What is your current weight (in kg)?")
+            )
+        elif state == 'ASK_CURRENT_WEIGHT':
+            c.execute('UPDATE users SET current_weight = ?, state = ? WHERE id = ?', (float(text), 'ASK_TARGET_WEIGHT', user_id))
+            conn.commit()
+            line_bot_api.reply_message(
+                event.reply_token, TextSendMessage(text="Thank you! What is your target weight (in kg)?")
+            )
+        elif state == 'ASK_TARGET_WEIGHT':
+            c.execute('UPDATE users SET target_weight = ?, state = ? WHERE id = ?', (float(text), 'REGISTERED', user_id))
+            conn.commit()
+            with open('explanation.txt', 'r', encoding='utf-8') as file:
+                explanation = file.read()
+            line_bot_api.reply_message(
+                event.reply_token, TextSendMessage(text=f"Registration complete!\n{explanation}")
+            )
+    else:
+        line_bot_api.reply_message(
+            event.reply_token, TextSendMessage(text="You are already registered!")
+        )
+
+
+@handler.add(MessageEvent, message=ImageMessage)
+def handle_image_message(event):
+    """
+    Handle image message
     """
     message_id = event.message.id
     message_content = line_bot_api.get_message_content(message_id)
@@ -99,7 +169,11 @@ def handle_message(event):
             f.write(chunk)
     
     image_path = f"static/{message_id}.jpg"
-    response_text = get_response_from_gpt_with_img(image_path)
+    
+    with open('prompt.txt', 'r', encoding='utf-8') as file:
+        prompt = file.read()
+
+    response_text = get_response_from_gpt_with_img(image_path, prompt)
 
     line_bot_api.reply_message(
         event.reply_token,

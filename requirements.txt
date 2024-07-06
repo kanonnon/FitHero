@@ -19,3 +19,4 @@ openai==1.35.10
 python-dotenv
 gunicorn
 Pillow
+cryptography
