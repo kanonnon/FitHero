@@ -9,13 +9,12 @@ from linebot import (
 from linebot.exceptions import (
     InvalidSignatureError
 )
-from linebot.models import (
-    FollowEvent, MessageEvent, TextMessage, TextSendMessage, ImageMessage
-)
+from linebot.models import FollowEvent, MessageEvent, TextMessage, TextSendMessage, ImageMessage, ImageSendMessage
 
 from registration import initiate_user_registration, handle_user_registration
 from gpt import calc_nutritional_info_from_image, create_sql_query
 from utils import extract_text_between
+from trainer import generate_trainer_image, welcome_trainer, fetch_handsome_message, can_request_trainer, update_request_date
 
 load_dotenv()
 
@@ -54,6 +53,7 @@ def handle_follow(event):
     Handle follow event
     """
     user_id = event.source.user_id
+    welcome_trainer(user_id, line_bot_api)
     initiate_user_registration(user_id, event.reply_token, line_bot_api)
 
 
@@ -66,7 +66,33 @@ def handle_text_message(event):
     text = event.message.text
 
     if text == "初回":
+        welcome_trainer(user_id, line_bot_api)
         initiate_user_registration(user_id, event.reply_token, line_bot_api)
+        return
+    if text == "trainer":
+        s3_file_url = generate_trainer_image(user_id)
+        if can_request_trainer(user_id):
+            s3_file_url = generate_trainer_image(user_id)
+            if s3_file_url:
+                line_bot_api.reply_message(
+                    event.reply_token,
+                    [
+                        TextSendMessage(text="Here is your trainer!"),
+                        TextSendMessage(text=fetch_handsome_message(user_id)),
+                        ImageSendMessage(original_content_url=s3_file_url, preview_image_url=s3_file_url)
+                    ]
+                )
+                update_request_date(user_id)
+            else:
+                line_bot_api.reply_message(
+                    event.reply_token,
+                    [TextSendMessage(text="Something went wrong. Please try again.")]
+                )
+        else:
+            line_bot_api.reply_message(
+                event.reply_token,
+                [TextSendMessage(text="You can only request this once per day.")]
+            )
         return
 
     handle_user_registration(user_id, text, event.reply_token, line_bot_api)
@@ -117,13 +143,13 @@ def handle_image_message(event):
     total_nutrition = c.fetchone()
 
     total_nutrition_message = (
-        f"Today's total nutritional intake:\n"
-        f"Calories: {total_nutrition[0]:.2f} kcal\n"
-        f"Protein: {total_nutrition[1]:.2f} g\n"
-        f"Fat: {total_nutrition[2]:.2f} g\n"
-        f"Carbohydrates: {total_nutrition[3]:.2f} g\n"
-        f"Dietary Fiber: {total_nutrition[4]:.2f} g"
-    )
+    f"【Today's Total Nutritional Value:】\n"
+    f"🔥 Calories: {total_nutrition[0]:.2f} kcal\n"
+    f"💪 Protein: {total_nutrition[1]:.2f} g\n"
+    f"🥑 Fat: {total_nutrition[2]:.2f} g\n"
+    f"🍞 Carbohydrates: {total_nutrition[3]:.2f} g\n"
+    f"🌾 Dietary Fiber: {total_nutrition[4]:.2f} g"
+)
 
     line_bot_api.reply_message(
         event.reply_token,
@@ -132,4 +158,4 @@ def handle_image_message(event):
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)

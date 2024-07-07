@@ -1,4 +1,6 @@
-For the meal shown in the image, calculate the approximate grams, calories, protein, fat, carbohydrates, and dietary fiber for each food item and present the output in the following format:
+Here's how to use this app:
+
+1. 📸 Send a photo of your meal to LINE. The nutritional value of each meal and your entire day's meals will be calculated for you.
 
 Name of the food
 ・Weight: ... grams
@@ -7,3 +9,7 @@ Name of the food
 ・Fat: ... grams
 ・Carbohydrates: ... grams
 ・Dietary Fiber: ... grams
+
+🏋️‍♂️ Type "trainer" to summon your personal trainer's face. Do this after you've completed your day's meals.
+
+※ You can only call your trainer once per day!

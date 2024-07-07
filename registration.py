@@ -1,9 +1,13 @@
 import sqlite3
 from linebot.models import TextSendMessage
+import logging
 
 
 conn = sqlite3.connect('database.db', check_same_thread=False)
 c = conn.cursor()
+
+# Set up logging
+logging.basicConfig(filename='error.log', level=logging.WARNING)
 
 
 def calculate_maintenance_calories(gender, age, height, weight):
@@ -25,7 +29,6 @@ def calculate_maintenance_calories(gender, age, height, weight):
     
     return bmr, maintenance_calories
 
-
 def initiate_user_registration(user_id, reply_token, line_bot_api):
     """
     Initiate user registration
@@ -33,9 +36,8 @@ def initiate_user_registration(user_id, reply_token, line_bot_api):
     c.execute('INSERT OR IGNORE INTO users (user_id, state) VALUES (?, ?)', (user_id, 'ASK_NAME'))
     conn.commit()
     line_bot_api.reply_message(
-        reply_token, TextSendMessage(text="Hello! Please tell me your name.")
+        reply_token, TextSendMessage(text="Then, tell me about your information.\nPlease tell me your name.")
     )
-
 
 def handle_user_registration(user_id, text, reply_token, line_bot_api):
     """
@@ -51,7 +53,7 @@ def handle_user_registration(user_id, text, reply_token, line_bot_api):
             c.execute('UPDATE users SET name = ?, state = ? WHERE user_id = ?', (text, 'ASK_AGE', user_id))
             conn.commit()
             line_bot_api.reply_message(
-                reply_token, TextSendMessage(text="Thank you! What is your age? Please answer using numbers only.")
+                reply_token, TextSendMessage(text="Thank you✨\n What is your age? Please answer using numbers only.")
             )
         elif state == 'ASK_AGE':
             try:
@@ -61,7 +63,7 @@ def handle_user_registration(user_id, text, reply_token, line_bot_api):
                 c.execute('UPDATE users SET age = ?, state = ? WHERE user_id = ?', (age, 'ASK_GENDER', user_id))
                 conn.commit()
                 line_bot_api.reply_message(
-                    reply_token, TextSendMessage(text="Thank you! What is your gender? Please answer 'M' for male or 'F' for female.")
+                    reply_token, TextSendMessage(text="Thank you👍\n What is your gender?\n Please answer 'M' for male or 'F' for female.")
                 )
             except ValueError:
                 line_bot_api.reply_message(
@@ -77,7 +79,7 @@ def handle_user_registration(user_id, text, reply_token, line_bot_api):
                 c.execute('UPDATE users SET gender = ?, state = ? WHERE user_id = ?', (gender, 'ASK_HEIGHT', user_id))
                 conn.commit()
                 line_bot_api.reply_message(
-                    reply_token, TextSendMessage(text="Thank you! What is your height (in cm)? Please answer using numbers only.")
+                    reply_token, TextSendMessage(text="Thank you😊\n What is your height (in cm)?\n Please answer using numbers only.")
                 )
         elif state == 'ASK_HEIGHT':
             try:
@@ -87,7 +89,7 @@ def handle_user_registration(user_id, text, reply_token, line_bot_api):
                 c.execute('UPDATE users SET height = ?, state = ? WHERE user_id = ?', (height, 'ASK_CURRENT_WEIGHT', user_id))
                 conn.commit()
                 line_bot_api.reply_message(
-                    reply_token, TextSendMessage(text="Thank you! What is your current weight (in kg)? Please answer using numbers only.")
+                    reply_token, TextSendMessage(text="Thank you🌸\n What is your current weight (in kg)?\n Please answer using numbers only.")
                 )
             except ValueError:
                 line_bot_api.reply_message(
@@ -136,7 +138,7 @@ def handle_user_registration(user_id, text, reply_token, line_bot_api):
                 with open('text/app_explanation.txt', 'r', encoding='utf-8') as file:
                     explanation = file.read()
                 line_bot_api.reply_message(
-                    reply_token, TextSendMessage(text=f"Registration complete!\n{explanation}")
+                    reply_token, TextSendMessage(text=f"Registration complete🎉\n{explanation}")
                 )
             except ValueError:
                 line_bot_api.reply_message(
@@ -144,5 +146,5 @@ def handle_user_registration(user_id, text, reply_token, line_bot_api):
                 )
     else:
         line_bot_api.reply_message(
-            reply_token, TextSendMessage(text="You are already registered!")
+            reply_token, TextSendMessage(text="You are already registered👍")
         )
