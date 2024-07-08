@@ -2,3 +2,4 @@ __pycache__
 static/
 .env
 .python-version
+.error.log

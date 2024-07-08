@@ -11,7 +11,7 @@ from linebot.exceptions import (
 )
 from linebot.models import FollowEvent, MessageEvent, TextMessage, TextSendMessage, ImageMessage, ImageSendMessage
 
-from registration import initiate_user_registration, handle_user_registration
+from registration import handle_user_registration
 from gpt import calc_nutritional_info_from_image, create_sql_query
 from utils import extract_text_between
 from trainer import generate_trainer_image, welcome_trainer, fetch_handsome_message, can_request_trainer, update_request_date
@@ -52,9 +52,8 @@ def handle_follow(event):
     """
     Handle follow event
     """
-    user_id = event.source.user_id
-    welcome_trainer(user_id, line_bot_api)
-    initiate_user_registration(user_id, event.reply_token, line_bot_api)
+    line_id = event.source.user_id
+    welcome_trainer(line_id, line_bot_api)
 
 
 @handler.add(MessageEvent, message=TextMessage)
@@ -62,13 +61,18 @@ def handle_text_message(event):
     """
     Handle text message
     """
-    user_id = event.source.user_id
+    line_id = event.source.user_id
     text = event.message.text
 
     if text == "初回":
-        welcome_trainer(user_id, line_bot_api)
-        initiate_user_registration(user_id, event.reply_token, line_bot_api)
+        welcome_trainer(line_id, line_bot_api)
         return
+    handle_user_registration(line_id, text, event.reply_token, line_bot_api)
+    
+    c.execute('SELECT id FROM users WHERE line_id = ?', (line_id,))
+    user = c.fetchone()
+    user_id = user[0]
+
     if text == "trainer":
         s3_file_url = generate_trainer_image(user_id)
         if can_request_trainer(user_id):
@@ -95,8 +99,6 @@ def handle_text_message(event):
             )
         return
 
-    handle_user_registration(user_id, text, event.reply_token, line_bot_api)
-
 
 @handler.add(MessageEvent, message=ImageMessage)
 def handle_image_message(event):
@@ -104,12 +106,12 @@ def handle_image_message(event):
     Handle image message
     """
     message_id = event.message.id
-    user_id = event.source.user_id
+    line_id = event.source.user_id
     message_content = line_bot_api.get_message_content(message_id)
 
-    c.execute('SELECT id FROM users WHERE user_id = ?', (user_id,))
+    c.execute('SELECT id FROM users WHERE line_id = ?', (line_id,))
     user = c.fetchone()
-    user_db_id = user[0]
+    user_id = user[0]
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     
     with open(f"static/{message_id}.jpg", "wb") as f:
@@ -120,7 +122,7 @@ def handle_image_message(event):
 
     nutritional_info = calc_nutritional_info_from_image(image_path)
     nutritional_info = extract_text_between(nutritional_info, "#{start}", "#{end}")
-    sql_query = create_sql_query(user_db_id, current_time, nutritional_info)
+    sql_query = create_sql_query(user_id, current_time, nutritional_info)
     sql_query = extract_text_between(sql_query, "```sql", "```")
     
     c.execute(sql_query)
@@ -139,7 +141,7 @@ def handle_image_message(event):
             SUM(dietary_fiber) 
         FROM nutritional_records 
         WHERE user_id = ? AND date_time BETWEEN ? AND ?
-    ''', (user_db_id, start_of_day, end_of_day))
+    ''', (user_id, start_of_day, end_of_day))
     total_nutrition = c.fetchone()
 
     total_nutrition_message = (

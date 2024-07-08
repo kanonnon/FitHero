@@ -20,3 +20,5 @@ python-dotenv
 gunicorn
 Pillow
 cryptography
+boto3
+gradio_client
