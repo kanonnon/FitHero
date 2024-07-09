@@ -121,6 +121,9 @@ def judge_trainer_status(user_id):
     c.execute('SELECT target_calories FROM users WHERE id = ?', (user_id,))
     target_calories = c.fetchone()[0]
 
+    if total_calories is None:
+        print("total_calories=None")
+        total_calories=0
     # 目標カロリーと当日の総カロリーをログに出力
     logging.error(f"user_id: {user_id}, total_calories: {total_calories}, target_calories: {target_calories}")
 
