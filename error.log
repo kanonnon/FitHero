@@ -119,3 +119,100 @@ WARNING:werkzeug: * Debugger is active!
 INFO:werkzeug: * Debugger PIN: 120-970-701
 INFO:app:Request body: {"destination":"U577317a62dcc97625dc4aa72ae4659e9","events":[{"type":"message","message":{"type":"text","id":"516529793828389202","quoteToken":"f_FgUHSsJZ2__IE4KseMo8wUU5sajpTyw-iGXi4d-EwYluzm6HFYmxp0QMUhcyTt4rdbzWCvBwmvWI6aikQPjm4tfLWwXOEglQgaj4CWEHkpKttm2yNz6mBA56UROR7wq38PJr39Spo0mHPRZSoZeQ","text":"trainer"},"webhookEventId":"01J2H23XE08JZKR5DRTR6FTEK9","deliveryContext":{"isRedelivery":false},"timestamp":1720707052784,"source":{"type":"user","userId":"Ufd0387d671515580a8eb4d9bee633713"},"replyToken":"6081c0d7a9e6436faf7b7e1dbb54fed1","mode":"active"}]}
 INFO:werkzeug:127.0.0.1 - - [11/Jul/2024 23:10:53] "POST /callback HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+INFO:werkzeug: * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2024 00:15:23] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2024 00:15:23] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2024 00:15:26] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2024 00:15:26] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2024 00:15:27] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2024 00:15:27] "GET / HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+INFO:werkzeug: * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+INFO:werkzeug: * Running on http://127.0.0.1:8080 (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2024 00:27:07] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2024 00:27:07] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2024 00:27:09] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2024 00:27:24] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2024 00:27:24] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+ERROR:root:user_id: 4, total_calories: 0, target_calories: 2000
+ERROR:root:status: good
+ERROR:root:prompt: traditional oil painting style anime illustration. Please generate only one image of the trainer. The background color should be plain without any patterns or extra text. An illustration of a 35-year-old male trainer facing forward, upper body depicted. He has black hair and a slightly bulging nose. He is fit. He has no beard. He is wearing gym clothes. His attractiveness level is 67.66666666666667 out of 100. The background is a light color. seed is 1242624025
+ERROR:root:画像のアップロードに失敗しました: An error occurred (AccessDenied) when calling the PutObject operation: Access Denied
+ERROR:root:s3_file_url is None, cannot save to SQL.
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2024 00:30:33] "POST /callback HTTP/1.1" 200 -
+ERROR:root:user_id: 4, total_calories: 0, target_calories: 2000
+ERROR:root:status: good
+ERROR:root:prompt: traditional oil painting style anime illustration. Please generate only one image of the trainer. The background color should be plain without any patterns or extra text. An illustration of a 35-year-old male trainer facing forward, upper body depicted. He has black hair and a slightly bulging nose. He is fit. He has no beard. He is wearing gym clothes. His attractiveness level is 67.66666666666667 out of 100. The background is a light color. seed is 1242624025
+ERROR:root:画像のアップロードに失敗しました: An error occurred (AccessDenied) when calling the PutObject operation: Access Denied
+ERROR:root:s3_file_url is None, cannot save to SQL.
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2024 00:32:06] "POST /callback HTTP/1.1" 200 -
+ERROR:root:user_id: 5, total_calories: 0, target_calories: 1500
+ERROR:root:status: good
+ERROR:root:prompt: traditional oil painting style anime illustration. Please generate only one image of the trainer. The background color should be plain without any patterns or extra text. An illustration of a 35-year-old male trainer facing forward, upper body depicted. He has black hair and a slightly bulging nose. He is fit. He has a beard. He is wearing gym clothes. His attractiveness level is 63.0 out of 100. The background is a light color. seed is 1242624025
+ERROR:root:画像のアップロードに失敗しました: An error occurred (AccessDenied) when calling the PutObject operation: Access Denied
+ERROR:root:s3_file_url is None, cannot save to SQL.
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2024 00:34:41] "POST /callback HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2024 00:35:40] "POST /callback HTTP/1.1" 200 -
+ERROR:root:user_id: 4, total_calories: 400.0, target_calories: 2000
+ERROR:root:status: good
+ERROR:root:prompt: traditional oil painting style anime illustration. Please generate only one image of the trainer. The background color should be plain without any patterns or extra text. An illustration of a 35-year-old male trainer facing forward, upper body depicted. He has black hair and a slightly bulging nose. He is fit. He has no beard. He is wearing gym clothes. His attractiveness level is 67.66666666666667 out of 100. The background is a light color. seed is 1242624025
+ERROR:app:Exception on /callback [POST]
+Traceback (most recent call last):
+  File "/Users/amemiyakanon/.pyenv/versions/3.8.10/envs/fithero/lib/python3.8/site-packages/flask/app.py", line 2070, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/amemiyakanon/.pyenv/versions/3.8.10/envs/fithero/lib/python3.8/site-packages/flask/app.py", line 1515, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/amemiyakanon/.pyenv/versions/3.8.10/envs/fithero/lib/python3.8/site-packages/flask/app.py", line 1513, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/amemiyakanon/.pyenv/versions/3.8.10/envs/fithero/lib/python3.8/site-packages/flask/app.py", line 1499, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "/Users/amemiyakanon/Desktop/大学/4年/5-4機械知能/最終発表/dr_gpt/app.py", line 44, in callback
+    handler.handle(body, signature)
+  File "/Users/amemiyakanon/.pyenv/versions/3.8.10/envs/fithero/lib/python3.8/site-packages/linebot/webhook.py", line 260, in handle
+    func(event)
+  File "/Users/amemiyakanon/Desktop/大学/4年/5-4機械知能/最終発表/dr_gpt/app.py", line 167, in handle_image_message
+    f"【Today's Total Nutritional Value:】\n"
+TypeError: unsupported format string passed to NoneType.__format__
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2024 00:35:47] "[35m[1mPOST /callback HTTP/1.1[0m" 500 -
+ERROR:root:画像のアップロードに失敗しました: An error occurred (AccessDenied) when calling the PutObject operation: Access Denied
+ERROR:root:s3_file_url is None, cannot save to SQL.
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2024 00:35:59] "POST /callback HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2024 00:36:30] "POST /callback HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2024 00:36:57] "POST /callback HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://127.0.0.1:8080 (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2024 01:07:06] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2024 01:07:07] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug: * Running on http://127.0.0.1:8080 (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2024 01:28:58] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2024 01:28:58] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2024 01:29:10] "POST /callback HTTP/1.1" 200 -
+ERROR:root:user_id: 4, total_calories: 1100.0, target_calories: 2000
+ERROR:root:status: good
+ERROR:root:prompt: traditional oil painting style anime illustration. Please generate only one image of the trainer. The background color should be plain without any patterns or extra text. An illustration of a 35-year-old male trainer facing forward, upper body depicted. He has black hair and a slightly bulging nose. He is fit. He has no beard. He is wearing gym clothes. His attractiveness level is 67.66666666666667 out of 100. The background is a light color. seed is 1242624025
+ERROR:root:画像のアップロードに失敗しました: An error occurred (AccessDenied) when calling the PutObject operation: Access Denied
+ERROR:root:s3_file_url is None, cannot save to SQL.
+ERROR:app:Exception on /callback [POST]
+Traceback (most recent call last):
+  File "/Users/amemiyakanon/.pyenv/versions/3.8.10/envs/fithero/lib/python3.8/site-packages/flask/app.py", line 2070, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/amemiyakanon/.pyenv/versions/3.8.10/envs/fithero/lib/python3.8/site-packages/flask/app.py", line 1515, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/amemiyakanon/.pyenv/versions/3.8.10/envs/fithero/lib/python3.8/site-packages/flask/app.py", line 1513, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/amemiyakanon/.pyenv/versions/3.8.10/envs/fithero/lib/python3.8/site-packages/flask/app.py", line 1499, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "/Users/amemiyakanon/Desktop/大学/4年/5-4機械知能/最終発表/dr_gpt/app.py", line 44, in callback
+    handler.handle(body, signature)
+  File "/Users/amemiyakanon/.pyenv/versions/3.8.10/envs/fithero/lib/python3.8/site-packages/linebot/webhook.py", line 260, in handle
+    func(event)
+  File "/Users/amemiyakanon/Desktop/大学/4年/5-4機械知能/最終発表/dr_gpt/app.py", line 98, in handle_text_message
+    line_bot_api.reply_message(
+  File "/Users/amemiyakanon/.pyenv/versions/3.8.10/envs/fithero/lib/python3.8/site-packages/linebot/api.py", line 107, in reply_message
+    self._post(
+  File "/Users/amemiyakanon/.pyenv/versions/3.8.10/envs/fithero/lib/python3.8/site-packages/linebot/api.py", line 1062, in _post
+    self.__check_error(response)
+  File "/Users/amemiyakanon/.pyenv/versions/3.8.10/envs/fithero/lib/python3.8/site-packages/linebot/api.py", line 1084, in __check_error
+    raise LineBotApiError(
+linebot.exceptions.LineBotApiError: LineBotApiError: status_code=400, request_id=c1f6475d-2782-4ea0-b989-ccc990b5f7d3, error_response={"details": [], "message": "Invalid reply token"}, headers={'server': 'legy', 'cache-control': 'no-cache, no-store, max-age=0, must-revalidate', 'content-type': 'application/json', 'date': 'Thu, 11 Jul 2024 16:31:42 GMT', 'expires': '0', 'pragma': 'no-cache', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': 'c1f6475d-2782-4ea0-b989-ccc990b5f7d3', 'x-xss-protection': '1; mode=block', 'content-length': '33'}
+INFO:werkzeug:127.0.0.1 - - [12/Jul/2024 01:31:42] "[35m[1mPOST /callback HTTP/1.1[0m" 500 -

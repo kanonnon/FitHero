@@ -12,7 +12,7 @@ from linebot.exceptions import (
 from linebot.models import FollowEvent, MessageEvent, TextMessage, TextSendMessage, ImageMessage, ImageSendMessage
 
 from registration import handle_user_registration
-from gpt import calc_nutritional_info_from_image, create_sql_query
+from gpt import calc_nutritional_info_from_image, create_sql_query, create_trainer_advice
 from utils import extract_text_between
 from trainer2 import generate_trainer_image, welcome_trainer, fetch_handsome_message, can_request_trainer, update_request_date
 
@@ -75,6 +75,14 @@ def handle_text_message(event):
 
     if text == "trainer":
         if can_request_trainer(user_id):
+            trainer_advice = create_trainer_advice(user_id)
+            trainer_advice = extract_text_between(trainer_advice, "#[start]", "#[end]")
+            line_bot_api.reply_message(
+                    event.reply_token,
+                    [
+                        TextSendMessage(text=trainer_advice)
+                    ]
+            )
             s3_file_url = generate_trainer_image(user_id)
             if s3_file_url:
                 line_bot_api.reply_message(
@@ -98,7 +106,15 @@ def handle_text_message(event):
             )
         return
     
-        #練習用
+        # 練習用
+        # trainer_advice = create_trainer_advice(user_id)
+        #     trainer_advice = extract_text_between(trainer_advice, "#[start]", "#[end]")
+        #     line_bot_api.reply_message(
+        #             event.reply_token,
+        #             [
+        #                 TextSendMessage(text=trainer_advice)
+        #             ]
+        #     )
         # s3_file_url = generate_trainer_image(user_id)
         # if s3_file_url:
         #     line_bot_api.reply_message(
@@ -164,13 +180,13 @@ def handle_image_message(event):
     total_nutrition = c.fetchone()
 
     total_nutrition_message = (
-    f"【Today's Total Nutritional Value:】\n"
-    f"🔥 Calories: {total_nutrition[0]:.2f} kcal\n"
-    f"💪 Protein: {total_nutrition[1]:.2f} g\n"
-    f"🥑 Fat: {total_nutrition[2]:.2f} g\n"
-    f"🍞 Carbohydrates: {total_nutrition[3]:.2f} g\n"
-    f"🌾 Dietary Fiber: {total_nutrition[4]:.2f} g"
-)
+        f"【Today's Total Nutritional Value:】\n"
+        f"🔥 Calories: {total_nutrition[0]:.2f} kcal\n"
+        f"💪 Protein: {total_nutrition[1]:.2f} g\n"
+        f"🥑 Fat: {total_nutrition[2]:.2f} g\n"
+        f"🍞 Carbohydrates: {total_nutrition[3]:.2f} g\n"
+        f"🌾 Dietary Fiber: {total_nutrition[4]:.2f} g"
+    )
 
     line_bot_api.reply_message(
         event.reply_token,
