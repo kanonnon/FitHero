@@ -1,112 +1,121 @@
-ERROR:app:Request body: {"destination":"U577317a62dcc97625dc4aa72ae4659e9","events":[{"type":"message","message":{"type":"text","id":"516220543884591286","quoteToken":"fCLK2wcAhEypL2Vl66DT4Ql0JmtT4cL8UoiXrmHxo8byKh3H4mq1E9DA504D8FB2z8BJHFy-UKDSA2ZHRb_hGu5eGdf-zlmzpXWykBYK8DvPILAxp7djYf3OJQINA5iZKYJQk67vcNU1gOofrqyjzQ","text":"trainer"},"webhookEventId":"01J2BJAPBW9TDV7Z9BNXS9FDEY","deliveryContext":{"isRedelivery":false},"timestamp":1720522725519,"source":{"type":"user","userId":"Ufd0387d671515580a8eb4d9bee633713"},"replyToken":"4f3f8761929c40819a2de810a5cb6c85","mode":"active"}]}
-ERROR:root:user_id: 5, total_calories: None, target_calories: 1500
-ERROR:app:Exception on /callback [POST]
-Traceback (most recent call last):
-  File "/Users/chikamitsumai/b4_finetune/venv/lib/python3.12/site-packages/flask/app.py", line 1473, in wsgi_app
-    response = self.full_dispatch_request()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/chikamitsumai/b4_finetune/venv/lib/python3.12/site-packages/flask/app.py", line 882, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/chikamitsumai/b4_finetune/venv/lib/python3.12/site-packages/flask/app.py", line 880, in full_dispatch_request
-    rv = self.dispatch_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/chikamitsumai/b4_finetune/venv/lib/python3.12/site-packages/flask/app.py", line 865, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/chikamitsumai/b4_finetune/diary/FitHero/app.py", line 58, in callback
-  File "/Users/chikamitsumai/b4_finetune/venv/lib/python3.12/site-packages/linebot/webhook.py", line 278, in handle
-    self.__invoke_func(func, event, payload)
-  File "/Users/chikamitsumai/b4_finetune/venv/lib/python3.12/site-packages/linebot/webhook.py", line 290, in __invoke_func
-    func(event)
-  File "/Users/chikamitsumai/b4_finetune/diary/FitHero/app.py", line 93, in handle_text_message
-    [TextSendMessage(text="Something went wrong. Please try again.")]
-      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/chikamitsumai/b4_finetune/diary/FitHero/trainer.py", line 149, in generate_trainer_image
-    status = judge_trainer_status(user_id)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/chikamitsumai/b4_finetune/diary/FitHero/trainer.py", line 128, in judge_trainer_status
-    if total_calories < target_calories:
-       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-TypeError: '<' not supported between instances of 'NoneType' and 'int'
-INFO:werkzeug:127.0.0.1 - - [09/Jul/2024 19:58:45] "[35m[1mPOST /callback HTTP/1.1[0m" 500 -
-ERROR:app:Request body: {"destination":"U577317a62dcc97625dc4aa72ae4659e9","events":[{"type":"message","message":{"type":"text","id":"516220562725929080","quoteToken":"yFvGCMz3cylI2Z8dwkSbY4qv9azzH38tE9q1E69-mwISEqyK-zQT-Fuge3hJFGnaLDClMVRMcVr6LfTEiahKVr5eZVHNDDT3gT_mJ54x3B5anQ0nvNPgykt70fUADD8-bJf4KvE-4aLBb-jlUvOH0g","text":"初回"},"webhookEventId":"01J2BJB1BXRQFJDEFKFSN3PDQE","deliveryContext":{"isRedelivery":false},"timestamp":1720522736841,"source":{"type":"user","userId":"Ufd0387d671515580a8eb4d9bee633713"},"replyToken":"b6ca1c78b67e4bfd9fe071eb9f9030ab","mode":"active"}]}
-INFO:werkzeug:127.0.0.1 - - [09/Jul/2024 19:58:57] "POST /callback HTTP/1.1" 200 -
-ERROR:app:Request body: {"destination":"U577317a62dcc97625dc4aa72ae4659e9","events":[{"type":"message","message":{"type":"text","id":"516220600575066458","quoteToken":"ZmfdLZWd1RkrieEvf69Yp77uSkzKuyx4cRoOj602AvXA7frGG39lvRsrYHmYLlg-j9e_bkkt-5PRyFNtbaGyUYzqcmMdqS9tZ1rgAHgEFJgA-mdzHHyiwvIVZrX9XbPrxrdsQc3n2rytFjevldy1tg","text":"hei"},"webhookEventId":"01J2BJBQMA12X0MXC262DY5NDF","deliveryContext":{"isRedelivery":false},"timestamp":1720522759309,"source":{"type":"user","userId":"Ufd0387d671515580a8eb4d9bee633713"},"replyToken":"59cbcaed294c4714872df3ef003d99b8","mode":"active"}]}
-INFO:werkzeug:127.0.0.1 - - [09/Jul/2024 19:59:19] "POST /callback HTTP/1.1" 200 -
-ERROR:app:Request body: {"destination":"U577317a62dcc97625dc4aa72ae4659e9","events":[{"type":"message","message":{"type":"text","id":"516220621446447128","quoteToken":"a1XJBcUEfm9MS0xKCR5qcHINqVxdxcfB5V9Hc42V-hsMhblUnpxXJ1w9HYPndGu6XGMPmENA_DS1v66gRaiDC2LpT3cVpr3YZKpS8Sj2GFv2gl6fnY0liFmHjradxgzyr25J_yphB8I57PubXoa8sw","text":"初回"},"webhookEventId":"01J2BJC3RMW94N5NFZ39D79AWY","deliveryContext":{"isRedelivery":false},"timestamp":1720522771796,"source":{"type":"user","userId":"Ufd0387d671515580a8eb4d9bee633713"},"replyToken":"82a826252f25436894baa7f9a6c8eb45","mode":"active"}]}
-INFO:werkzeug:127.0.0.1 - - [09/Jul/2024 19:59:32] "POST /callback HTTP/1.1" 200 -
-ERROR:app:Request body: {"destination":"U577317a62dcc97625dc4aa72ae4659e9","events":[{"type":"message","message":{"type":"text","id":"516220626680938802","quoteToken":"c-QRT8gv6xtDl1GuyOoJD2T5K06ma65RmHFBCB4-Vwt1RZgQiRYDmgmNAdNH1W8gS9vkGTefDfZUuZ7xITCOyYarTvg080luYnohdntt6nmy78vHEDSYA6UPsM9zxJwrTA8UfHOCiwuFlj-H-a4qMQ","text":"hei"},"webhookEventId":"01J2BJC6PZQBT5MSTK6N9EDX0K","deliveryContext":{"isRedelivery":false},"timestamp":1720522774805,"source":{"type":"user","userId":"Ufd0387d671515580a8eb4d9bee633713"},"replyToken":"f81a36ef1198426e95c77c29c1e2efae","mode":"active"}]}
-INFO:werkzeug:127.0.0.1 - - [09/Jul/2024 19:59:35] "POST /callback HTTP/1.1" 200 -
-ERROR:app:Request body: {"destination":"U577317a62dcc97625dc4aa72ae4659e9","events":[{"type":"message","message":{"type":"text","id":"516220992993886582","quoteToken":"kT8C9K6ToWpFEjMtqMSMkQ3FxiT5zNffp0uq9EHV9goAiUr0Ac-2MQ9DPRplzXl7TvbaR5qToJ11rrlJg0Lh3MiZfm0KRcDkghqImiyMPQggrijp4K5MEi_5gwowY-iAUuf0G5hnmPoFmzuQVs64Tw","text":"trainer"},"webhookEventId":"01J2BJJVZSHPDJ7TZQH7SYS6F4","deliveryContext":{"isRedelivery":false},"timestamp":1720522993149,"source":{"type":"user","userId":"Ufd0387d671515580a8eb4d9bee633713"},"replyToken":"04a05e4239fd41fcbb56249633f0bba1","mode":"active"}]}
-ERROR:root:user_id: 5, total_calories: None, target_calories: 1500
-ERROR:app:Exception on /callback [POST]
-Traceback (most recent call last):
-  File "/Users/chikamitsumai/b4_finetune/venv/lib/python3.12/site-packages/flask/app.py", line 1473, in wsgi_app
-    response = self.full_dispatch_request()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/chikamitsumai/b4_finetune/venv/lib/python3.12/site-packages/flask/app.py", line 882, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/chikamitsumai/b4_finetune/venv/lib/python3.12/site-packages/flask/app.py", line 880, in full_dispatch_request
-    rv = self.dispatch_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/chikamitsumai/b4_finetune/venv/lib/python3.12/site-packages/flask/app.py", line 865, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/chikamitsumai/b4_finetune/diary/FitHero/app.py", line 58, in callback
-  File "/Users/chikamitsumai/b4_finetune/venv/lib/python3.12/site-packages/linebot/webhook.py", line 278, in handle
-    self.__invoke_func(func, event, payload)
-  File "/Users/chikamitsumai/b4_finetune/venv/lib/python3.12/site-packages/linebot/webhook.py", line 290, in __invoke_func
-    func(event)
-  File "/Users/chikamitsumai/b4_finetune/diary/FitHero/app.py", line 93, in handle_text_message
-    [TextSendMessage(text="Something went wrong. Please try again.")]
-      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/chikamitsumai/b4_finetune/diary/FitHero/trainer.py", line 149, in generate_trainer_image
-    handsomeness = 0
-         ^^^^^^^^^^^^
-  File "/Users/chikamitsumai/b4_finetune/diary/FitHero/trainer.py", line 128, in judge_trainer_status
-    logging.error(f"user_id: {user_id}, total_calories: {total_calories}, target_calories: {target_calories}")
-       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-TypeError: '<' not supported between instances of 'NoneType' and 'int'
-INFO:werkzeug:127.0.0.1 - - [09/Jul/2024 20:03:13] "[35m[1mPOST /callback HTTP/1.1[0m" 500 -
-INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
- * Running on http://127.0.0.1:5002
-INFO:werkzeug:[33mPress CTRL+C to quit[0m
-INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
- * Running on http://127.0.0.1:5002
-INFO:werkzeug:[33mPress CTRL+C to quit[0m
-INFO:werkzeug: * Restarting with stat
-WARNING:werkzeug: * Debugger is active!
-INFO:werkzeug: * Debugger PIN: 120-970-701
-INFO:app:Request body: {"destination":"U577317a62dcc97625dc4aa72ae4659e9","events":[{"type":"message","message":{"type":"text","id":"516221583116206105","quoteToken":"_EHniz_MgBnHYHwSU8N1snEdmx3SjYFzVCWlNNieaqEPu0uIVoFrRhMHl1mgfmWM_zviwiCj0jpTLujq2cUh33iGhdqIsyWYQ64RFslPk-924855ukRkbzWzzpu1HZyjTI4QPkJTVEy9FqJpeXA9VA","text":"trainer"},"webhookEventId":"01J2BJXKHVSGRG3E709Y4RV7FV","deliveryContext":{"isRedelivery":false},"timestamp":1720523345041,"source":{"type":"user","userId":"Ufd0387d671515580a8eb4d9bee633713"},"replyToken":"a62c1eef3db04c5c912aa30112f0f81e","mode":"active"}]}
-ERROR:root:user_id: 5, total_calories: None, target_calories: 1500
-INFO:werkzeug:127.0.0.1 - - [09/Jul/2024 20:09:05] "[35m[1mPOST /callback HTTP/1.1[0m" 500 -
-INFO:werkzeug: * Detected change in '/Users/chikamitsumai/b4_finetune/diary/FitHero/trainer.py', reloading
-INFO:werkzeug: * Restarting with stat
-WARNING:werkzeug: * Debugger is active!
-INFO:werkzeug: * Debugger PIN: 120-970-701
-INFO:app:Request body: {"destination":"U577317a62dcc97625dc4aa72ae4659e9","events":[{"type":"message","message":{"type":"text","id":"516222118175441042","quoteToken":"4rATK2KytVJ_gVTyq5I-OUOJ8F2K0hRk1dbaTYD2N5SqJOt9aFd5iUSpltAKCKKQehUuYInFjIcZ5EX5lEBUzenvKchY4y3StDYtlzfjR9GG0iEUGP_MoGmXAWx5hu0K6rkuQb9qaKKd4QkuG3QdWg","text":"trainer"},"webhookEventId":"01J2BK7AZFV93TT6TQH0XH5MZK","deliveryContext":{"isRedelivery":false},"timestamp":1720523663860,"source":{"type":"user","userId":"Ufd0387d671515580a8eb4d9bee633713"},"replyToken":"0936cdf0caba44f0b817bab1e280c4fd","mode":"active"}]}
+INFO:app:Request body: {"destination":"U577317a62dcc97625dc4aa72ae4659e9","events":[{"type":"message","message":{"type":"text","id":"516524680316715046","quoteToken":"1p155IJVqR8Vj_oII916YtHQGf2PnnUfM9VRfQDjLlU0rDCWP-MjuS3htnrFxxCDDU2E3aJiuryevpTH57bjQX8E_EL3elvzzz3YyNb01yi1q2wtYut6RQ3AqR0b51T4MWwZo7Y2LDLWCZjYdlLZGg","text":"trainer"},"webhookEventId":"01J2GZ6WZ6VVY5MXHW4WG1G6WV","deliveryContext":{"isRedelivery":false},"timestamp":1720704004987,"source":{"type":"user","userId":"Ufd0387d671515580a8eb4d9bee633713"},"replyToken":"6cc9c31a7ed24d079a20302aa487efd1","mode":"active"}]}
 ERROR:root:user_id: 5, total_calories: 0, target_calories: 1500
 ERROR:root:status: good
+INFO:werkzeug:127.0.0.1 - - [11/Jul/2024 22:20:27] "POST /callback HTTP/1.1" 200 -
+INFO:app:Request body: {"destination":"U577317a62dcc97625dc4aa72ae4659e9","events":[{"type":"message","message":{"type":"text","id":"516525425728946597","quoteToken":"Xj6_MpiEUUDE1f3pW_9CBthwnOFKWPwbR2HHV4rgKxi_Q7QClP1-q8yrwck6Spsyh8ZOyRczVp2FuG1yioZc3109xQDUFW_YPIHC5bOIx8gzbJcBQdYQB9pKaQTMSZGqfoBOvnyqgrRp5jY0ZgRL8w","text":"trainer"},"webhookEventId":"01J2GZMF6YQ1FCV4E7HJMGK5JG","deliveryContext":{"isRedelivery":false},"timestamp":1720704449234,"source":{"type":"user","userId":"Ufd0387d671515580a8eb4d9bee633713"},"replyToken":"402bf9058cd24bbf8356aaeab352cb8f","mode":"active"}]}
 ERROR:root:user_id: 5, total_calories: 0, target_calories: 1500
 ERROR:root:status: good
-INFO:werkzeug:127.0.0.1 - - [09/Jul/2024 20:17:21] "POST /callback HTTP/1.1" 200 -
-INFO:app:Request body: {"destination":"U577317a62dcc97625dc4aa72ae4659e9","events":[{"type":"message","message":{"type":"text","id":"516222703666725416","quoteToken":"M6ituB5HmBpftYyrpQhfiDj10QjoQYURdPxKI2mkWYkHdL04cI1JCFmCjK_xhiBKkoIRoihS0jsX8clpSwkVbGGSRSdKYPRzBKi3cQ1ztBmS5Y1WogU3sHHnH3ruKQiDTo1keCKAN4WBprnCxpm9yQ","text":"trainer"},"webhookEventId":"01J2BKHZDT9GTWY6844T5YBQJ8","deliveryContext":{"isRedelivery":false},"timestamp":1720524012926,"source":{"type":"user","userId":"U15b86ca70b38ee948977fb145f12033f"},"replyToken":"1fdb377fe0cf41f9bec6d34667f69fc8","mode":"active"}]}
-ERROR:root:user_id: 4, total_calories: 0, target_calories: 2000
-ERROR:root:status: good
-ERROR:root:user_id: 4, total_calories: 0, target_calories: 2000
-ERROR:root:status: good
-INFO:app:Request body: {"destination":"U577317a62dcc97625dc4aa72ae4659e9","events":[{"type":"message","message":{"type":"text","id":"516222790388154369","quoteToken":"uU3marwIjfFokHSfc1cRSU-Tuc89hLhyjxlSAOY9-RC96-7ESBN8SDgDyKSQNWgXEuzILEEZb-atJgj1ZwbTTW5LDjvTpcHC5XhtNKC1qavmJdFpX__UnEmgHKwE_7ViNsYSglW0yTCCZbG7id4Shw","text":"trainer"},"webhookEventId":"01J2BKKHQVRFR7WPR8CM808YFG","deliveryContext":{"isRedelivery":false},"timestamp":1720524064469,"source":{"type":"user","userId":"U15b86ca70b38ee948977fb145f12033f"},"replyToken":"f980ba723f8b4a66afb599c306eb2f86","mode":"active"}]}
-ERROR:root:user_id: 4, total_calories: 0, target_calories: 2000
-ERROR:root:status: good
-INFO:werkzeug:127.0.0.1 - - [09/Jul/2024 20:21:25] "POST /callback HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [09/Jul/2024 20:21:37] "POST /callback HTTP/1.1" 200 -
-INFO:app:Request body: {"destination":"U577317a62dcc97625dc4aa72ae4659e9","events":[{"type":"message","message":{"type":"image","id":"516223228339814532","quoteToken":"h6Usgt02sqvCoa7mD0FCqkX4qFZiMmwlMNSEwDjtkAkKVLeiYuAjkI-NrqLu4tczasysbWSLn4awA3fE6AzjNfqHTKyp02fZj-gOfzSsw85wCqROBVHtzc0zAZJqS68LwFvysrjwg1Nc2qGl3RJYVw","contentProvider":{"type":"line"}},"webhookEventId":"01J2BKVH4WB2AXH699QAXF8Z9Z","deliveryContext":{"isRedelivery":false},"timestamp":1720524325843,"source":{"type":"user","userId":"Ufd0387d671515580a8eb4d9bee633713"},"replyToken":"16eafcd317b24b96980edd408bfa7117","mode":"active"}]}
-INFO:werkzeug:127.0.0.1 - - [09/Jul/2024 20:25:43] "POST /callback HTTP/1.1" 200 -
-INFO:app:Request body: {"destination":"U577317a62dcc97625dc4aa72ae4659e9","events":[{"type":"message","message":{"type":"text","id":"516223292798140505","quoteToken":"ZgX2Ru4J9lafiyQJJAhuGIkgGEC8cjB93pdaMmXOiMCsKB8Rz1YuuQnPrFmSpeQ3dMfN4U1lDx9r6IoCwFsXHtF3fHDgjW-Iti3HmAl5S_RgY_fLTgQQpIqimXnVPo5JwE_f3XhRNFjANDs3zGyd6Q","text":"trainer"},"webhookEventId":"01J2BKWPB6HR9HZFJBCE7NK0MD","deliveryContext":{"isRedelivery":false},"timestamp":1720524364046,"source":{"type":"user","userId":"Ufd0387d671515580a8eb4d9bee633713"},"replyToken":"a3ca8e628d1c4c3ea3ed2f3d68446b33","mode":"active"}]}
-ERROR:root:user_id: 5, total_calories: 350.0, target_calories: 1500
-ERROR:root:status: good
-ERROR:root:API呼び出しに失敗しました: sent 1011 (unexpected error) keepalive ping timeout; no close frame received
-ERROR:root:s3_file_url is None, cannot save to SQL.
-INFO:werkzeug:127.0.0.1 - - [09/Jul/2024 20:42:10] "POST /callback HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jul/2024 22:27:48] "POST /callback HTTP/1.1" 200 -
+INFO:app:Request body: {"destination":"U577317a62dcc97625dc4aa72ae4659e9","events":[{"type":"message","message":{"type":"image","id":"516525462957588834","quoteToken":"qWpAykJnMUCmogMy2ip1Rwc3GDH3Qrt5LWyjgBbZ7ons9S6n1u78LzFH79CyiPaJEwqk0aZd-LzrTRHwiNdXfYx8HOoN0mPJXv6gj9abxBVDeE5ML51OtS9i9v5SVlQUMZatnIm2bWlwujj5g5RwSg","contentProvider":{"type":"line"},"imageSet":{"id":"5CD1415C500CE7B31CADF194DD3F75C98D1A20FDE6E1ECDA1C392E3D2DEF96FF","index":1,"total":2}},"webhookEventId":"01J2GZN4Q57CGX15JKF727VA72","deliveryContext":{"isRedelivery":false},"timestamp":1720704471623,"source":{"type":"user","userId":"Ufd0387d671515580a8eb4d9bee633713"},"replyToken":"da08e67fed5e484887c5a59fdb5e8ad2","mode":"active"}]}
+INFO:app:Request body: {"destination":"U577317a62dcc97625dc4aa72ae4659e9","events":[{"type":"message","message":{"type":"image","id":"516525462957850819","quoteToken":"NaBu42UX6tRaO02XIrp6tN86-ynUGcgzJ4VDoMksVaXlL-8tq0A5xsKZBx8Nomjl9NmygS4aJcdU3xMPjETSxzu2D68NEO36JlyIw5KbLrbOOwuaJQw7bsHEoOIJqMgIvEZNbyCBlSwpZfF_1kFo1w","contentProvider":{"type":"line"},"imageSet":{"id":"5CD1415C500CE7B31CADF194DD3F75C98D1A20FDE6E1ECDA1C392E3D2DEF96FF","index":2,"total":2}},"webhookEventId":"01J2GZN4V4DBCE13SCS8HB6K4M","deliveryContext":{"isRedelivery":false},"timestamp":1720704471743,"source":{"type":"user","userId":"Ufd0387d671515580a8eb4d9bee633713"},"replyToken":"168bb703e1b4413590f9a38833348c04","mode":"active"}]}
+INFO:werkzeug:127.0.0.1 - - [11/Jul/2024 22:28:00] "[35m[1mPOST /callback HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [11/Jul/2024 22:28:01] "POST /callback HTTP/1.1" 200 -
+INFO:app:Request body: {"destination":"U577317a62dcc97625dc4aa72ae4659e9","events":[{"type":"message","message":{"type":"image","id":"516525485070221410","quoteToken":"8ipJkEJT3MU9xdbTAiC3r8xy8d2itbaMY-L6cnyJuI_c8SF0On-RHaN9t7j_U-CD44d82s0XsvejnFsjSTSXGDbxBVBF8zG_yIBBJy_tBYerl6Ff0DksBELgmmdGRA9cFs-Gu__TJPeVtmWRnwEp1A","contentProvider":{"type":"line"},"imageSet":{"id":"6395EF40068B611BE6D792D278D2F12C5B8545E248EF0FDB4786C2415E63FDB3","index":1,"total":2}},"webhookEventId":"01J2GZNHT60YRM75G3H7QHSEAF","deliveryContext":{"isRedelivery":false},"timestamp":1720704484762,"source":{"type":"user","userId":"Ufd0387d671515580a8eb4d9bee633713"},"replyToken":"cdcc54e51e6f45e0bbd6590b9a1514ad","mode":"active"}]}
+INFO:app:Request body: {"destination":"U577317a62dcc97625dc4aa72ae4659e9","events":[{"type":"message","message":{"type":"image","id":"516525485455311049","quoteToken":"DQc83aLXZRKiJbsnflu9__ZzOVg7vCtLNtIgVjKwev5dGinDBmn8Z-qA_Lr4Do1_39c-u9YBUj96_CiK1dQwijwS6m-d2yh9tvgn22hmBSDcpuZ8j89EhoX0GUQjpqet--GoD_Mr0e8BkraXS8MlIg","contentProvider":{"type":"line"},"imageSet":{"id":"6395EF40068B611BE6D792D278D2F12C5B8545E248EF0FDB4786C2415E63FDB3","index":2,"total":2}},"webhookEventId":"01J2GZNJ3YCEJ8F36F41PHTNXS","deliveryContext":{"isRedelivery":false},"timestamp":1720704485113,"source":{"type":"user","userId":"Ufd0387d671515580a8eb4d9bee633713"},"replyToken":"da15e437e162423ab8e6baa75e4484e7","mode":"active"}]}
+INFO:werkzeug:127.0.0.1 - - [11/Jul/2024 22:28:17] "POST /callback HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jul/2024 22:28:17] "POST /callback HTTP/1.1" 200 -
+INFO:app:Request body: {"destination":"U577317a62dcc97625dc4aa72ae4659e9","events":[{"type":"message","message":{"type":"image","id":"516525506779938915","quoteToken":"SEm52NlCN5jSd_oVyiYgxfpjycH1sbq1GmcphVo3SqH-lt6qNNj0Y36zUemA8d14luvdkS4yfou5wtN6_hhyRyUTtkmhxBAp1UlfLywh-ixMi1pKHgKQHv_Q7tqq7N-2gG0CcddUl5jCgMSHKA3vVg","contentProvider":{"type":"line"},"imageSet":{"id":"A35877CBD46A0020AA2C0BE4460F6C570AD9BC5A45AD8CBA5B84E46C4B86FB42","index":1,"total":4}},"webhookEventId":"01J2GZNYF0RSY5SA15ZQ19A80R","deliveryContext":{"isRedelivery":false},"timestamp":1720704497838,"source":{"type":"user","userId":"Ufd0387d671515580a8eb4d9bee633713"},"replyToken":"9d894de37d6d4ec18e52f88dbd47b1a1","mode":"active"}]}
+INFO:app:Request body: {"destination":"U577317a62dcc97625dc4aa72ae4659e9","events":[{"type":"message","message":{"type":"image","id":"516525507954344241","quoteToken":"0fD8zqjN29cYHEuENcyHCL3ezViB7PiBeurnakkluf0Y5CGS2I_Qwg2mAdZ6Lm3AXBgvrUqCjc7aW8B1Xpixqv_X2NaEenAEy-qDh2AFxVoHxKCFtdm0QYhyGOGU9kVvBxxVeRsn_mk1tKYPsQxztA","contentProvider":{"type":"line"},"imageSet":{"id":"A35877CBD46A0020AA2C0BE4460F6C570AD9BC5A45AD8CBA5B84E46C4B86FB42","index":3,"total":4}},"webhookEventId":"01J2GZNYVKJN7105V8NSY255ER","deliveryContext":{"isRedelivery":false},"timestamp":1720704498358,"source":{"type":"user","userId":"Ufd0387d671515580a8eb4d9bee633713"},"replyToken":"069f532f405840eba58a60e54c5691ef","mode":"active"},{"type":"message","message":{"type":"image","id":"516525507416948803","quoteToken":"nvfZLIb9FftFpE2jWpDujXI2OhdFcuPlbD9rw2-NdgAoyctyJUIzpA1w_beJqvyv6ePm-2lje7TldIa4Amo3SvpGYclDQGErl67sSQ6sfIltltvfnCycwS5AzoVlND0ahg4SAA0nOAhpet6jAm5mxA","contentProvider":{"type":"line"},"imageSet":{"id":"A35877CBD46A0020AA2C0BE4460F6C570AD9BC5A45AD8CBA5B84E46C4B86FB42","index":2,"total":4}},"webhookEventId":"01J2GZNYZB2F26M0SNE79J3XD6","deliveryContext":{"isRedelivery":false},"timestamp":1720704498209,"source":{"type":"user","userId":"Ufd0387d671515580a8eb4d9bee633713"},"replyToken":"f95b979b0c8d4c549af2ef9bef23a808","mode":"active"},{"type":"message","message":{"type":"image","id":"516525508088562194","quoteToken":"_vRQBf9xg_BCkO3GeL2Rh8Tw5CLsdqFp-yMFC-YoXtU_mzgbE0fiPH4s7dP4UAn7gbiTKutP5_-N4-OFrCBfsyCIvvgOJPl1Xca0FA7k84suSG7TroODz9QK2m4DRkZsgFVRxmz0iThAHiqlTwtVJw","contentProvider":{"type":"line"},"imageSet":{"id":"A35877CBD46A0020AA2C0BE4460F6C570AD9BC5A45AD8CBA5B84E46C4B86FB42","index":4,"total":4}},"webhookEventId":"01J2GZNZ6QJ7VE5Q89DVFHEHTC","deliveryContext":{"isRedelivery":false},"timestamp":1720704498594,"source":{"type":"user","userId":"Ufd0387d671515580a8eb4d9bee633713"},"replyToken":"1c3d1f57c8894c519713c01163a845bb","mode":"active"}]}
+INFO:werkzeug:127.0.0.1 - - [11/Jul/2024 22:28:31] "POST /callback HTTP/1.1" 200 -
+INFO:app:Request body: {"destination":"U577317a62dcc97625dc4aa72ae4659e9","events":[{"type":"message","message":{"type":"text","id":"516525537532313829","quoteToken":"ihX8-A-_B7f0BqW2qJ1AEZVUXh0jBDTFI5mpYEz9qcjZdx6TR4esRJOsOAcB3WTBFFUY1dx61eRiHSo1Tz4LPdIR_XkUEtNM9b2xRSag2GJHRERZu7pCK1HvgG9CvuRKXPBFdTiIdPS8Q14J9wIjZg","text":"trainer"},"webhookEventId":"01J2GZPG385AVAV125T6AS3S3X","deliveryContext":{"isRedelivery":false},"timestamp":1720704515865,"source":{"type":"user","userId":"Ufd0387d671515580a8eb4d9bee633713"},"replyToken":"a8fdcb7ff01449809ac80b2bc41d4be5","mode":"active"}]}
+ERROR:root:user_id: 5, total_calories: 1670.0, target_calories: 1500
+ERROR:root:status: bad
+INFO:werkzeug:127.0.0.1 - - [11/Jul/2024 22:28:55] "POST /callback HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jul/2024 22:29:15] "POST /callback HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/Users/chikamitsumai/b4_finetune/diary/FitHero/trainer2.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 120-970-701
+INFO:app:Request body: {"destination":"U577317a62dcc97625dc4aa72ae4659e9","events":[{"type":"message","message":{"type":"text","id":"516526570975265354","quoteToken":"jnPBQXe-_vI3KzD3AlCO9cuCo6FTy62PHzB9J7tmG-tN2HJZX6tDU7_ptNT5RzefBRb-1otSUZ7W0z0m6f0pS_AxU66wHpweHsFPHJ_fn0nq-kvUVwiyhCycOYGjq2YgVAmHb0xuGXoFaCOC4p2Tqw","text":"trainer"},"webhookEventId":"01J2H099PFYYS3JARPY15PF9GS","deliveryContext":{"isRedelivery":false},"timestamp":1720705131941,"source":{"type":"user","userId":"Ufd0387d671515580a8eb4d9bee633713"},"replyToken":"8815b091dbfb4a9c85140966175dfa00","mode":"active"}]}
+ERROR:root:user_id: 5, total_calories: 3860.0, target_calories: 1500
+ERROR:root:status: bad
+INFO:werkzeug:127.0.0.1 - - [11/Jul/2024 22:39:11] "POST /callback HTTP/1.1" 200 -
+INFO:app:Request body: {"destination":"U577317a62dcc97625dc4aa72ae4659e9","events":[{"type":"message","message":{"type":"text","id":"516526613170225489","quoteToken":"VOjEtLsa-PburKpCfPIEDHVDIvT9Wne9uq537NlvRl8EX1B-_JdxL26WUPXjqhGrbQSISj5nex4EM1xv22CH1JZyAv430_mqDvglhCnm4L3qycy4JW6sIS5W9igT85YYQcsYBNUSq-TgeKPlw1pSdA","text":"trarner"},"webhookEventId":"01J2H0A28HGRBFAEHN7GZWVSHV","deliveryContext":{"isRedelivery":false},"timestamp":1720705156963,"source":{"type":"user","userId":"Ufd0387d671515580a8eb4d9bee633713"},"replyToken":"273b4254c58341cb8ca24f0d03bdf6d6","mode":"active"}]}
+INFO:werkzeug:127.0.0.1 - - [11/Jul/2024 22:39:17] "POST /callback HTTP/1.1" 200 -
+INFO:app:Request body: {"destination":"U577317a62dcc97625dc4aa72ae4659e9","events":[{"type":"message","message":{"type":"text","id":"516526859861622898","quoteToken":"NYwIpCOjRTKpy43CTg246kIk4CZAhZkvJL6rZoThfC3hZ4-NalNaAlPjEcm_VaRlAmTLpnayvayFbfc9nkT-rKnuCs_31yn1S0OfkA8OlSjLwoZFrS2gN7YYYFhigeCMVx8vtyiH2qM7B4jGSf2Khg","text":"trainer"},"webhookEventId":"01J2H0EHFF86KFGYJP3PXKTXBY","deliveryContext":{"isRedelivery":false},"timestamp":1720705304020,"source":{"type":"user","userId":"Ufd0387d671515580a8eb4d9bee633713"},"replyToken":"86049e3bfa434cbfa32ab7b722d18759","mode":"active"}]}
+ERROR:root:user_id: 5, total_calories: 3860.0, target_calories: 1500
+ERROR:root:status: bad
+INFO:werkzeug:127.0.0.1 - - [11/Jul/2024 22:42:12] "POST /callback HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/Users/chikamitsumai/b4_finetune/diary/FitHero/trainer2.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 120-970-701
+INFO:werkzeug: * Detected change in '/Users/chikamitsumai/b4_finetune/diary/FitHero/trainer2.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 120-970-701
+INFO:app:Request body: {"destination":"U577317a62dcc97625dc4aa72ae4659e9","events":[{"type":"message","message":{"type":"text","id":"516527333449400811","quoteToken":"3ZHxtUEbLh4Zd0beERX-n8Re4HZhVdw1FD9sJWPpMuz5lHxIXJmZ9WIIb8z6IGf2WOxP0o8igAF77Rb_g9hKgpccxUPIgHufQp9Uql9-eRgBRULe2Q-fXKljo8zAo_yDUwMMpJTHz7ef6YciqYa4qQ","text":"trainer"},"webhookEventId":"01J2H0Q5CVRE8FFD6VJN78MX12","deliveryContext":{"isRedelivery":false},"timestamp":1720705586461,"source":{"type":"user","userId":"Ufd0387d671515580a8eb4d9bee633713"},"replyToken":"323fabcdf26f4a4cb67ec9e2cb744bed","mode":"active"}]}
+ERROR:root:user_id: 5, total_calories: 3860.0, target_calories: 1500
+ERROR:root:status: bad
+INFO:werkzeug:127.0.0.1 - - [11/Jul/2024 22:46:40] "POST /callback HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/Users/chikamitsumai/b4_finetune/diary/FitHero/trainer2.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 120-970-701
+INFO:app:Request body: {"destination":"U577317a62dcc97625dc4aa72ae4659e9","events":[{"type":"message","message":{"type":"text","id":"516527728284664269","quoteToken":"50x3ze-Cyr9zJUSlvVzQugmxr5JX6iTTHiIVLFfulVLHK3mB5uDtB2xofWctkCDbb87TPOhn7lYqhQ4Dzg5qxuAIS_P3PljGdwh3c2A3eiokitf_pfzj6jFz_tMxKjJz4jHGQFXiyWvbmamm8yQ-5g","text":"trainer"},"webhookEventId":"01J2H0YBCYF4BSHJ9G1QP364MD","deliveryContext":{"isRedelivery":false},"timestamp":1720705821806,"source":{"type":"user","userId":"Ufd0387d671515580a8eb4d9bee633713"},"replyToken":"4b6be939cffa439ca5d1fc669545659d","mode":"active"}]}
+ERROR:root:user_id: 5, total_calories: 3860.0, target_calories: 1500
+ERROR:root:status: bad
+INFO:werkzeug:127.0.0.1 - - [11/Jul/2024 22:50:43] "POST /callback HTTP/1.1" 200 -
+INFO:app:Request body: {"destination":"U577317a62dcc97625dc4aa72ae4659e9","events":[{"type":"message","message":{"type":"text","id":"516527790460764788","quoteToken":"79FqR8f5Yh9PxYp5BPGT0IEfbbmsTOq793h8qI3RtJ9J77iVwq9gzkc_ly_0DaOHBITqTkg1Dw_vCI5KkFeX-2KbAqI7-lis4gmo1MR3bvLc929PQoQ4-s9Lq9TjcrgJCCxeLNdFEa0V_nmUpPIQ3A","text":"trainer"},"webhookEventId":"01J2H0ZFDMPKMXYQMZX1E3NFN7","deliveryContext":{"isRedelivery":false},"timestamp":1720705858729,"source":{"type":"user","userId":"Ufd0387d671515580a8eb4d9bee633713"},"replyToken":"910d2b4d863c4462ade258015c101c07","mode":"active"}]}
+ERROR:root:user_id: 5, total_calories: 3860.0, target_calories: 1500
+ERROR:root:status: bad
+INFO:werkzeug:127.0.0.1 - - [11/Jul/2024 22:51:23] "POST /callback HTTP/1.1" 200 -
+INFO:app:Request body: {"destination":"U577317a62dcc97625dc4aa72ae4659e9","events":[{"type":"message","message":{"type":"text","id":"516527853324468247","quoteToken":"ikYxbXIB8WITCjI7qwgzmNrWoXy-TCGSV7uv-z0uI-D42IPYp3ZZcrFPpG775e41W1ZEYh9lqQw-QNhdSFhXRq14xRE13BVSNR2PPnzBH-L394u1fB79ejB6V5FupyNnri4ulogL-XS1z_1--cUbsg","text":"traindr"},"webhookEventId":"01J2H10M69PYBJ9528MPBKKYR8","deliveryContext":{"isRedelivery":false},"timestamp":1720705896305,"source":{"type":"user","userId":"Ufd0387d671515580a8eb4d9bee633713"},"replyToken":"3547db53e80c4d7487297602ea1097bf","mode":"active"}]}
+INFO:werkzeug:127.0.0.1 - - [11/Jul/2024 22:51:36] "POST /callback HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/Users/chikamitsumai/b4_finetune/diary/FitHero/trainer2.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 120-970-701
+INFO:app:Request body: {"destination":"U577317a62dcc97625dc4aa72ae4659e9","events":[{"type":"message","message":{"type":"text","id":"516528035927687537","quoteToken":"2O4lGhCh0kzqRqU0z1to6A7yvh8fNS49Pww1w0xeEDi-ETg-01EUtfmHEz4MMGXmG1XGs-nYE8Byg7-nXKZV2jvf2ZNbMr940wvO_obKgu00J5if6QlH_WQS651haam_FJgHArt_GcHQL2DC47j_BA","text":"trainer"},"webhookEventId":"01J2H13YBJDNJ9JX6AEHGQ1QHD","deliveryContext":{"isRedelivery":false},"timestamp":1720706005077,"source":{"type":"user","userId":"Ufd0387d671515580a8eb4d9bee633713"},"replyToken":"9c700723abde44cb9362e02489210613","mode":"active"}]}
+ERROR:root:user_id: 5, total_calories: 3860.0, target_calories: 1500
+ERROR:root:status: bad
+INFO:werkzeug:127.0.0.1 - - [11/Jul/2024 22:53:53] "POST /callback HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/Users/chikamitsumai/b4_finetune/diary/FitHero/trainer2.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 120-970-701
+INFO:werkzeug: * Detected change in '/Users/chikamitsumai/b4_finetune/diary/FitHero/trainer2.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 120-970-701
+INFO:app:Request body: {"destination":"U577317a62dcc97625dc4aa72ae4659e9","events":[{"type":"message","message":{"type":"text","id":"516528249116557443","quoteToken":"wVn54APq-1zoo4NrS9LJq05jE0c56_iUDe3d8EZdSZcGpvZzpug6kn-oeUb2WYa7rd_G3OnXEtUEP4svK1aaxta0CeXQYJk045M9mj8oPG0j9CX0WQBqcnEBB5LqPU6WgBg8xC2IdlwdIV_JBzGebQ","text":"trainer"},"webhookEventId":"01J2H17TDXAWRBA7VZEWWVZ64Y","deliveryContext":{"isRedelivery":false},"timestamp":1720706132127,"source":{"type":"user","userId":"Ufd0387d671515580a8eb4d9bee633713"},"replyToken":"40def38aff9c42ad844408980c53581e","mode":"active"}]}
+ERROR:root:user_id: 5, total_calories: 3860.0, target_calories: 1500
+ERROR:root:status: bad
+INFO:werkzeug:127.0.0.1 - - [11/Jul/2024 22:55:56] "POST /callback HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/Users/chikamitsumai/b4_finetune/diary/FitHero/trainer2.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 120-970-701
+INFO:app:Request body: {"destination":"U577317a62dcc97625dc4aa72ae4659e9","events":[{"type":"message","message":{"type":"text","id":"516528483443147283","quoteToken":"kz8rUZ6ijr3cZy-I_F0b4M3O-Ey-jZjO8m0NdThbWwmQ4YEjDfHOAVn3Rx2_2NW4tM6nZLxsEQfqBuXo8A1gjo1-q7bnw3hHgTFOs4t5bvsfcOqQItYspjFSVABkchEKNsGGtp9BIWslRDo8-a_Vjw","text":"trainer"},"webhookEventId":"01J2H1C2VV8PDC13PAF1N46H3Y","deliveryContext":{"isRedelivery":false},"timestamp":1720706271848,"source":{"type":"user","userId":"Ufd0387d671515580a8eb4d9bee633713"},"replyToken":"5f80705f44724993bfaf92dd3a69e432","mode":"active"}]}
+ERROR:root:user_id: 5, total_calories: 3860.0, target_calories: 1500
+ERROR:root:status: bad
+INFO:werkzeug:127.0.0.1 - - [11/Jul/2024 22:58:13] "POST /callback HTTP/1.1" 200 -
+INFO:app:Request body: {"destination":"U577317a62dcc97625dc4aa72ae4659e9","events":[{"type":"message","message":{"type":"text","id":"516528533808611479","quoteToken":"Ox61XdS7YoLHiNDz3pJd0idTc77Q9-o861w6myCs7L5NZswtZBFMUJUWEYqze14oqx7Qd5FtBw4atqf_N4kIVMvBmaEeIN9GSYp0PHGWeuOrQ1R4kOW83k7BqvQzhPgPgUxdvKzXtOn4pTouz_q0pg","text":"trainer"},"webhookEventId":"01J2H1D012ZZ9Y1R26V05B94KS","deliveryContext":{"isRedelivery":false},"timestamp":1720706301828,"source":{"type":"user","userId":"Ufd0387d671515580a8eb4d9bee633713"},"replyToken":"db4e1d52580743fc9067b49ff54f7467","mode":"active"}]}
+ERROR:root:user_id: 5, total_calories: 3860.0, target_calories: 1500
+ERROR:root:status: bad
+INFO:werkzeug:127.0.0.1 - - [11/Jul/2024 22:58:50] "POST /callback HTTP/1.1" 200 -
+INFO:app:Request body: {"destination":"U577317a62dcc97625dc4aa72ae4659e9","events":[{"type":"message","message":{"type":"text","id":"516528598199566819","quoteToken":"u_ypBj8OCmwVrahQRXOrrowkKCgJuCOaA3lnG0HsXBpE3WayPuNGaANKMKNKa9coKIb9hZJV0TuVXRlpRb_nZ4dzVVYGhYN5qwHZ8uflGu_2oFF_9tmYpF7eiEcy0TvdRjr5ROduDOlDmpy5rQY2eA","text":"trainer"},"webhookEventId":"01J2H1E5CMVW2KTQ1K3TF96KSY","deliveryContext":{"isRedelivery":false},"timestamp":1720706340160,"source":{"type":"user","userId":"Ufd0387d671515580a8eb4d9bee633713"},"replyToken":"6dafac47961e40a9a68860b5dcf00bfa","mode":"active"}]}
+ERROR:root:user_id: 5, total_calories: 3860.0, target_calories: 1500
+ERROR:root:status: bad
+INFO:werkzeug:127.0.0.1 - - [11/Jul/2024 22:59:31] "POST /callback HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/Users/chikamitsumai/b4_finetune/diary/FitHero/trainer2.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 120-970-701
+INFO:app:Request body: {"destination":"U577317a62dcc97625dc4aa72ae4659e9","events":[{"type":"message","message":{"type":"text","id":"516528976894624102","quoteToken":"fH2Z9BT67hwBhPEoPDnPTfuI5Ot88XO7d8cblfa03pvJqxDnYL5JCYT4t30AFsflt6EZxrGbCVBNbc49ZFUmXUZQrk5UURDbgCzbHZJoOGlXdQHsD5KBdD-SyB4PjLWODnLQl3gU-3-xw5LXDIGlHQ","text":"trainer"},"webhookEventId":"01J2H1N1SQST4VSWNB5P4TEVKG","deliveryContext":{"isRedelivery":false},"timestamp":1720706565857,"source":{"type":"user","userId":"Ufd0387d671515580a8eb4d9bee633713"},"replyToken":"d7ce6f61c8f34b53b6d54196bc91c6a1","mode":"active"}]}
+ERROR:root:user_id: 5, total_calories: 3860.0, target_calories: 1500
+ERROR:root:status: bad
+INFO:werkzeug:127.0.0.1 - - [11/Jul/2024 23:03:00] "POST /callback HTTP/1.1" 200 -
+INFO:app:Request body: {"destination":"U577317a62dcc97625dc4aa72ae4659e9","events":[{"type":"message","message":{"type":"text","id":"516529015163715666","quoteToken":"LzGnGfhAgY8zQRZsZyucbaQ_npOQ-f4SOFEJ_PB7boQ0hSfEd6Lf6bdrJ0ecUxpthvWXNVAW4FNTK0JsWaEYkahKmOBoM6ZDZqZgZ59I0YzyjeQ8GEd0vs-8tN_hcyyWuz65SD5I4sHmVyqe5e_arw","text":"trainer"},"webhookEventId":"01J2H1NR82TD6CQNGD7Q61R1DY","deliveryContext":{"isRedelivery":false},"timestamp":1720706588699,"source":{"type":"user","userId":"Ufd0387d671515580a8eb4d9bee633713"},"replyToken":"08d4efb76ca7423a85acd21bd1cf5ce9","mode":"active"}]}
+ERROR:root:user_id: 5, total_calories: 3860.0, target_calories: 1500
+ERROR:root:status: bad
+INFO:werkzeug:127.0.0.1 - - [11/Jul/2024 23:03:38] "POST /callback HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/Users/chikamitsumai/b4_finetune/diary/FitHero/trainer2.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 120-970-701
+INFO:werkzeug: * Detected change in '/Users/chikamitsumai/b4_finetune/diary/FitHero/trainer2.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 120-970-701
+INFO:app:Request body: {"destination":"U577317a62dcc97625dc4aa72ae4659e9","events":[{"type":"message","message":{"type":"text","id":"516529500042297810","quoteToken":"aKSeq8KznbybTSr09kXsz6uICPoT9wJ5PkhNXkf9EJmgSuZJNwpYMql5qSDir720-1G50HTY2LFSfJuGAe13bDzbwlSrAVjvWImFx09rVjLT5UP0_J_bUfWijZiVgjD0rOMVXnQRcwA7wds422t6FA","text":"trainer"},"webhookEventId":"01J2H1YJATXQP9M5GH4JNE9MZ8","deliveryContext":{"isRedelivery":false},"timestamp":1720706877731,"source":{"type":"user","userId":"Ufd0387d671515580a8eb4d9bee633713"},"replyToken":"4f00c9bd3645419ea8bcd1d11a2c1a00","mode":"active"}]}
+ERROR:root:user_id: 5, total_calories: 3860.0, target_calories: 1500
+ERROR:root:status: bad
+ERROR:root:prompt: traditional oil painting style anime illustration. Please generate only one image of the trainer. The background color should be plain without any patterns or extra text. An illustration of a 35-year-old male trainer facing forward, upper body depicted. He has black hair and a slightly bulging nose. He is fit. He has a beard. He is wearing gym clothes. His attractiveness level is 62.666666666666664 out of 100. The background is a light color. seed is 1242624025
+INFO:werkzeug:127.0.0.1 - - [11/Jul/2024 23:08:23] "POST /callback HTTP/1.1" 200 -
+INFO:app:Request body: {"destination":"U577317a62dcc97625dc4aa72ae4659e9","events":[{"type":"message","message":{"type":"text","id":"516529583609610531","quoteToken":"9cAJNCB65l8tNgry2od3v7lLl-MpV3Y6gsjWjgtQ2ouZ4jFzfkpE6dKTFEW-54thBgQSBI2iBEDihwnrwrqCz0JYCKzcIhjROuO3C-xTPaw--U8vyQpCPArl2IBevXNeUsJs_dqWgXPDihTDCWzLCw","text":"tragner"},"webhookEventId":"01J2H2033D3Q3VBGR3MNTYGZVT","deliveryContext":{"isRedelivery":false},"timestamp":1720706927572,"source":{"type":"user","userId":"Ufd0387d671515580a8eb4d9bee633713"},"replyToken":"dfe1d05a31514fc5aa517b341ba5e433","mode":"active"}]}
+INFO:werkzeug:127.0.0.1 - - [11/Jul/2024 23:08:47] "POST /callback HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/Users/chikamitsumai/b4_finetune/diary/FitHero/app.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 120-970-701
+INFO:app:Request body: {"destination":"U577317a62dcc97625dc4aa72ae4659e9","events":[{"type":"message","message":{"type":"text","id":"516529793828389202","quoteToken":"f_FgUHSsJZ2__IE4KseMo8wUU5sajpTyw-iGXi4d-EwYluzm6HFYmxp0QMUhcyTt4rdbzWCvBwmvWI6aikQPjm4tfLWwXOEglQgaj4CWEHkpKttm2yNz6mBA56UROR7wq38PJr39Spo0mHPRZSoZeQ","text":"trainer"},"webhookEventId":"01J2H23XE08JZKR5DRTR6FTEK9","deliveryContext":{"isRedelivery":false},"timestamp":1720707052784,"source":{"type":"user","userId":"Ufd0387d671515580a8eb4d9bee633713"},"replyToken":"6081c0d7a9e6436faf7b7e1dbb54fed1","mode":"active"}]}
+INFO:werkzeug:127.0.0.1 - - [11/Jul/2024 23:10:53] "POST /callback HTTP/1.1" 200 -

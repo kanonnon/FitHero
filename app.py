@@ -14,7 +14,7 @@ from linebot.models import FollowEvent, MessageEvent, TextMessage, TextSendMessa
 from registration import handle_user_registration
 from gpt import calc_nutritional_info_from_image, create_sql_query
 from utils import extract_text_between
-from trainer import generate_trainer_image, welcome_trainer, fetch_handsome_message, can_request_trainer, update_request_date
+from trainer2 import generate_trainer_image, welcome_trainer, fetch_handsome_message, can_request_trainer, update_request_date
 
 load_dotenv()
 
@@ -74,14 +74,13 @@ def handle_text_message(event):
     user_id = user[0]
 
     if text == "trainer":
-        s3_file_url = generate_trainer_image(user_id)
         if can_request_trainer(user_id):
             s3_file_url = generate_trainer_image(user_id)
             if s3_file_url:
                 line_bot_api.reply_message(
                     event.reply_token,
                     [
-                        TextSendMessage(text="Here is your trainer!"),
+                        TextSendMessage(text="Here is your trainer😄"),
                         TextSendMessage(text=fetch_handsome_message(user_id)),
                         ImageSendMessage(original_content_url=s3_file_url, preview_image_url=s3_file_url)
                     ]
@@ -90,14 +89,34 @@ def handle_text_message(event):
             else:
                 line_bot_api.reply_message(
                     event.reply_token,
-                    [TextSendMessage(text="Something went wrong. Please try again.")]
+                    [TextSendMessage(text="Something went wrong. Please try again🙏")]
                 )
         else:
             line_bot_api.reply_message(
                 event.reply_token,
-                [TextSendMessage(text="You can only request this once per day.")]
+                [TextSendMessage(text="You can only request this once per day😞")]
             )
         return
+    
+        #練習用
+        # s3_file_url = generate_trainer_image(user_id)
+        # if s3_file_url:
+        #     line_bot_api.reply_message(
+        #         event.reply_token,
+        #         [
+        #             TextSendMessage(text="Here is your trainer!"),
+        #             TextSendMessage(text=fetch_handsome_message(user_id)),
+        #             ImageSendMessage(original_content_url=s3_file_url, preview_image_url=s3_file_url)
+        #         ]
+        #     )
+        #     update_request_date(user_id)
+        # else:
+        #     line_bot_api.reply_message(
+        #         event.reply_token,
+        #         [TextSendMessage(text="Something went wrong. Please try again.")]
+        #     )
+        # return
+
 
 
 @handler.add(MessageEvent, message=ImageMessage)
